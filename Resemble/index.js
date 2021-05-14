@@ -2,7 +2,6 @@ const compareImages = require("resemblejs/compareImages")
 const config = require("./config.json");
 const fs = require('fs');
 const cypress = require("cypress");
-const cypress = require("./cypress/integration/palette.spec.js");
 
 
 const { viewportHeight, viewportWidth, options, url } = config;
