@@ -11,7 +11,8 @@ async function executeTest(){
 
   let datetime = new Date().toISOString().replace(/:/g,".");
 
-  await cypress.run({
+  await npm cy:run -- --env datetime=`${datetime}` --config video=false --spec "./cypress/integration/palette.spec.js"
+  /*await cypress.run({
       spec: './cypress/integration/palette.spec.js',
       config: {
           video: false
@@ -21,9 +22,9 @@ async function executeTest(){
       }
   }).then((results) => {
       console.log(results)
-      fs.renameSync(`./cypress/screenshots/palette.spec.js/${datetime}/`,`./reports/${datetime}/`);
-  })
-
+      
+  })*/
+  fs.renameSync(`./cypress/screenshots/palette.spec.js/${datetime}/`,`./reports/${datetime}/`);
   
   const data = await compareImages(
       fs.readFileSync(`./reports/${datetime}/take1.png`),
@@ -45,14 +46,14 @@ async function executeTest(){
   console.log('------------------------------------------------------------------------------------')
   console.log("Execution finished. Check the report under the results folder")
 
-  createReport(datetime,resultInfo);
+  //createReport(datetime,resultInfo);
 
   return resultInfo;  
 }
 (async ()=>console.log(await executeTest()))();
 
 
-function createReport(datetime, resInfo){
+/*function createReport(datetime, resInfo){
     var tableElement = "<tr>";
     tableElement += "<th scope='row'>" + datetime + "</th>";
     tableElement += "<td colspan='2'><img src='./reports/${datetime}/take1.png' class='rounded mx-auto d-block' alt='First Image'></td>";
@@ -65,4 +66,4 @@ function createReport(datetime, resInfo){
     tableElement += "</tr>";
     
     document.getElementById("contenido").innerHTML = tableElement;
-}
+}*/
