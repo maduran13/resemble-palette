@@ -11,8 +11,7 @@ async function executeTest(){
 
   let datetime = new Date().toISOString().replace(/:/g,".");
 
-  await npm cy:run -- --env datetime=`${datetime}` --config video=false --spec "./cypress/integration/palette.spec.js"
-  /*await cypress.run({
+  await cypress.run({
       spec: './cypress/integration/palette.spec.js',
       config: {
           video: false
@@ -23,7 +22,8 @@ async function executeTest(){
   }).then((results) => {
       console.log(results)
       
-  })*/
+  })
+  
   fs.renameSync(`./cypress/screenshots/palette.spec.js/${datetime}/`,`./reports/${datetime}/`);
   
   const data = await compareImages(
@@ -39,9 +39,6 @@ async function executeTest(){
       diffBounds: data.diffBounds,
       analysisTime: data.analysisTime
   }
-  fs.writeFileSync(`./reports/${datetime}/compare.png`, data.getBuffer());
-
-  fs.writeFileSync(`./results/${datetime}/report.html`, createReport(datetime, resultInfo));
 
   console.log('------------------------------------------------------------------------------------')
   console.log("Execution finished. Check the report under the results folder")
